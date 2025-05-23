@@ -35,9 +35,6 @@ const formSchema = z.object({
   age: z.coerce.number().min(18, "Must be at least 18.").max(100, "Must be 100 or younger."),
   coverageNeeds: z.string().min(10, "Minimum 10 characters.").max(500, "Maximum 500 characters."),
   personalInformation: z.string().min(10, "Minimum 10 characters.").max(500, "Maximum 500 characters."),
-  riskTolerance: z.enum(["Low", "Medium", "High"], {
-    required_error: "Please select your risk tolerance.",
-  }),
 });
 
 export type InformationFormValues = z.infer<typeof formSchema>;
@@ -66,7 +63,6 @@ export default function InformationForm() {
       age: undefined,
       coverageNeeds: "",
       personalInformation: "",
-      riskTolerance: undefined,
     },
     mode: "onChange", // Validate on change for better UX
   });
@@ -107,7 +103,7 @@ export default function InformationForm() {
                 <FormItem>
                   <FormLabel>Age</FormLabel>
                   <FormControl>
-                    <Input type="number" placeholder="e.g., 35" {...field} />
+                    <Input type="number" placeholder="e.g., 35" id="ageInput" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -122,6 +118,7 @@ export default function InformationForm() {
                   <FormLabel>Coverage Needs</FormLabel>
                   <FormControl>
                     <Textarea
+                      id="coverageNeedsText"
                       placeholder="Describe what you're looking to cover (e.g., health expenses, family financial security, car protection, home safety)."
                       {...field}
                     />
@@ -142,38 +139,13 @@ export default function InformationForm() {
                   <FormLabel>Personal Information / Situation</FormLabel>
                   <FormControl>
                     <Textarea
+                      id="personalInformationText"
                       placeholder="Briefly describe your situation (e.g., single, married with children, homeowner, specific health conditions, type of car)."
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
                     This helps us understand your context. Do not share sensitive private data.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="riskTolerance"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Risk Tolerance</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select your risk tolerance" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Low">Low (Prefer lower premiums, higher deductibles)</SelectItem>
-                      <SelectItem value="Medium">Medium (Balanced premiums and coverage)</SelectItem>
-                      <SelectItem value="High">High (Prefer comprehensive coverage, lower deductibles)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormDescription>
-                    How comfortable are you with potential out-of-pocket expenses?
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

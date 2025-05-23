@@ -10,7 +10,7 @@ export default function RecommendationDisplay({ recommendations }: Recommendatio
     <Card className="mt-8 border-accent shadow-md">
       <CardHeader className="flex flex-row items-center space-x-3">
         <Lightbulb className="h-8 w-8 text-accent" />
-        <CardTitle className="text-xl text-accent">AI Policy Recommendations</CardTitle>
+        <CardTitle className="text-xl text-accent" id="recommendationTitle">Recomendaciones de Pólizas</CardTitle>
       </CardHeader>
       <CardContent>
         <p className="text-foreground whitespace-pre-wrap">

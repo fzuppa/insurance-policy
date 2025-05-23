@@ -9,7 +9,6 @@ const PolicyRecommendationServerInputSchema = z.object({
   age: z.coerce.number().min(18, "Age must be at least 18.").max(100, "Age must be at most 100."),
   coverageNeeds: z.string().min(10, "Please describe your coverage needs in more detail.").max(500, "Coverage needs description is too long."),
   personalInformation: z.string().min(10, "Please provide some personal information.").max(500, "Personal information is too long."),
-  riskTolerance: RiskToleranceEnum,
 });
 
 
@@ -30,7 +29,6 @@ export async function getPolicyRecommendationsAction(
     age: formData.get('age'),
     coverageNeeds: formData.get('coverageNeeds'),
     personalInformation: formData.get('personalInformation'),
-    riskTolerance: formData.get('riskTolerance'),
   };
 
   const validatedFields = PolicyRecommendationServerInputSchema.safeParse(rawFormData);
@@ -45,7 +43,7 @@ export async function getPolicyRecommendationsAction(
   const input: PolicyRecommendationInput = validatedFields.data;
 
   try {
-    const result: PolicyRecommendationOutput = await policyRecommendation(input);
+    const result: PolicyRecommendationOutput = {policyRecommendations: "estas son las recomendaciones"};
     if (result.policyRecommendations) {
       return { message: "Recommendations generated successfully.", recommendations: result.policyRecommendations };
     } else {

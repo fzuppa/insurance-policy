@@ -17,7 +17,6 @@ const PolicyRecommendationInputSchema = z.object({
   age: z.number().describe('The age of the user.'),
   coverageNeeds: z.string().describe('The coverage needs of the user.'),
   personalInformation: z.string().describe('The personal information of the user.'),
-  riskTolerance: z.string().describe('The risk tolerance of the user.'),
 });
 export type PolicyRecommendationInput = z.infer<typeof PolicyRecommendationInputSchema>;
 
@@ -40,7 +39,6 @@ const prompt = ai.definePrompt({
   Age: {{{age}}}
   Coverage Needs: {{{coverageNeeds}}}
   Personal Information: {{{personalInformation}}}
-  Risk Tolerance: {{{riskTolerance}}}
   \n
   Based on the information above, provide policy recommendations for the user. Consider policies that would be most suitable for their specific situation.
   `,
